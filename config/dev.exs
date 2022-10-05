@@ -1,0 +1,13 @@
+import Config
+
+cosmos_db_host =
+  System.get_env("COSMOS_DB_HOST") ||
+    "http://localhost:5025"
+
+cosmos_db_key =
+  System.get_env("COSMOS_DB_KEY") ||
+    ""
+
+config :cosmox,
+  cosmos_db_host: cosmos_db_host,
+  cosmos_db_key: cosmos_db_key
