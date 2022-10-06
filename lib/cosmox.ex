@@ -14,7 +14,7 @@ defmodule Cosmox do
   alias Cosmox.RestClient
   alias Cosmox.Structs.Collection
 
-  def deserialize() do
+  def deserialize do
     map = %{"test" => "test"}
     encoded_map = Jason.encode!(map)
 
@@ -27,7 +27,7 @@ defmodule Cosmox do
     end
   end
 
-  def call() do
+  def call do
     case ApiHelpers.call(:dbs, :get, "", "") do
       {:ok, response} -> response
       error = {:error, %ErrorMessage{}} -> error
