@@ -20,10 +20,10 @@ defmodule Cosmox do
 
     case DeserializationHelpers.deserialize(encoded_map) do
       {:ok, result} ->
-        Logger.info("The deserialisation succeeded: #{inspect result}")
+        Logger.info("The deserialisation succeeded: #{inspect(result)}")
 
       {:error, %ErrorMessage{errors: errors}} ->
-        Logger.info("An error occurred: #{inspect errors}")
+        Logger.info("An error occurred: #{inspect(errors)}")
     end
   end
 
