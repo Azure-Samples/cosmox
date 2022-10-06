@@ -1,10 +1,8 @@
 name: Build
 
 on:
-  push:
-    branches: [ main, mdacunzo/feature/first-functionality-commit ]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 env:
   COSMOS_DB_HOST: ${{ secrets.COSMOS_DB_HOST }}
