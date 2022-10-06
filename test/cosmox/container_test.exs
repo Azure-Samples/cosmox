@@ -5,7 +5,6 @@ defmodule Cosmox.ContainerTest do
 
   use ExUnit.Case
 
-  alias Cosmox.Application
   alias Cosmox.Container
   alias Cosmox.Database
 
@@ -19,7 +18,6 @@ defmodule Cosmox.ContainerTest do
 
   setup_all do
     # Starting the Application
-    Application.start(nil, nil)
     cleanup()
     :ok
   end

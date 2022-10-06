@@ -9,11 +9,6 @@ defmodule Cosmox.DocumentTest do
   alias Cosmox.Structs.DocumentInfo
   alias Cosmox.Structs.Tests.Person
 
-  setup_all do
-    Cosmox.Application.start(nil, nil)
-    :ok
-  end
-
   defp cleanup do
     database_id = "test_db"
     container_id = "test_container"

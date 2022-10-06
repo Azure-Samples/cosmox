@@ -6,13 +6,7 @@ defmodule Cosmox.StoredProcedureTest do
   alias Cosmox.Container
   alias Cosmox.Database
   alias Cosmox.StoredProcedure, as: SP
-
   alias Cosmox.Structs.StoredProcedure
-
-  setup_all do
-    Cosmox.Application.start(nil, nil)
-    :ok
-  end
 
   defp cleanup do
     database_id = "test_db"

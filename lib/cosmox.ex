@@ -3,14 +3,16 @@ defmodule Cosmox do
   Collection of example functions to represent how to use the Cosmox library.
   """
 
-  alias Cosmox.Response.ErrorMessage
-  alias Cosmox.Structs.Collection
+  require Logger
+
+  alias Cosmox.Container
+  alias Cosmox.Database
+  alias Cosmox.Document
   alias Cosmox.Helpers.ApiHelpers
   alias Cosmox.Helpers.DeserializationHelpers
+  alias Cosmox.Response.ErrorMessage
   alias Cosmox.RestClient
-  alias Cosmox.Database
-  alias Cosmox.Container
-  alias Cosmox.Document
+  alias Cosmox.Structs.Collection
 
   def deserialize() do
     map = %{"test" => "test"}
@@ -18,10 +20,10 @@ defmodule Cosmox do
 
     case DeserializationHelpers.deserialize(encoded_map) do
       {:ok, result} ->
-        IO.inspect(result)
+        Logger.info("The deserialisation succeeded: #{inspect result}")
 
       {:error, %ErrorMessage{errors: errors}} ->
-        IO.inspect(errors)
+        Logger.info("An error occurred: #{inspect errors}")
     end
   end
 
@@ -32,7 +34,7 @@ defmodule Cosmox do
     end
   end
 
-  def call_and_parse() do
+  def call_and_parse do
     response = ApiHelpers.call(:dbs, :get, "", "")
 
     case response |> RestClient.try_decode_response(Collection) do
@@ -41,7 +43,7 @@ defmodule Cosmox do
     end
   end
 
-  def create_database() do
+  def create_database do
     case Database.create_database("test_database") do
       {:ok, _} ->
         IO.puts("Database created")
@@ -51,7 +53,7 @@ defmodule Cosmox do
     end
   end
 
-  def create_container() do
+  def create_container do
     case Container.create_container("test_database", "test_container") do
       {:ok, _} ->
         IO.puts("Container created")
@@ -61,7 +63,7 @@ defmodule Cosmox do
     end
   end
 
-  def create_document() do
+  def create_document do
     case Document.create_document(
            "test_database",
            "test_container",
@@ -81,7 +83,7 @@ defmodule Cosmox do
     end
   end
 
-  def query_documents() do
+  def query_documents do
     case Document.query_documents(
            "test_database",
            "test_container",

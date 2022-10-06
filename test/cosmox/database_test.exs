@@ -5,15 +5,12 @@ defmodule Cosmox.DatabaseTest do
 
   use ExUnit.Case
 
+  require Logger
+
   alias Cosmox.Database
   alias Cosmox.Response.ErrorMessage
   alias Cosmox.Structs.Database, as: DbStruct
   alias Cosmox.Structs.DatabaseList
-
-  setup_all do
-    Cosmox.Application.start(nil, nil)
-    :ok
-  end
 
   defp cleanup do
     database_id = "test_db"
