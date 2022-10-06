@@ -34,6 +34,7 @@ defmodule Cosmox do
 
   def call_and_parse() do
     response = ApiHelpers.call(:dbs, :get, "", "")
+
     case response |> RestClient.try_decode_response(Collection) do
       {:ok, response} -> response
       error = {:error, %ErrorMessage{}} -> error
@@ -61,12 +62,17 @@ defmodule Cosmox do
   end
 
   def create_document() do
-    case Document.create_document("test_database", "test_container", %{
-      "name" => "John",
-      "age" => 30,
-      "id" => "1",
-      "pk" => "pk"
-    }, nil) do
+    case Document.create_document(
+           "test_database",
+           "test_container",
+           %{
+             "name" => "John",
+             "age" => 30,
+             "id" => "1",
+             "pk" => "pk"
+           },
+           nil
+         ) do
       {:ok, _} ->
         IO.puts("Document created")
 
@@ -76,7 +82,12 @@ defmodule Cosmox do
   end
 
   def query_documents() do
-    case Document.query_documents("test_database", "test_container", "pk", {"SELECT * FROM c", []}) do
+    case Document.query_documents(
+           "test_database",
+           "test_container",
+           "pk",
+           {"SELECT * FROM c", []}
+         ) do
       {:ok, _} ->
         IO.puts("Documents queried")
 
@@ -84,5 +95,4 @@ defmodule Cosmox do
         IO.puts("Error querying documents: #{messages}")
     end
   end
-
 end

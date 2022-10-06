@@ -12,9 +12,9 @@ defmodule Cosmox.Database do
 
   @doc """
   Creates a new database, given the database id (the name)).
-  
+
   ## Example
-  
+
     iex> Cosmox.Database.create_database("test_db")
     {:ok,
     %Cosmox.Structs.Database{
@@ -26,7 +26,7 @@ defmodule Cosmox.Database do
       _users: "users/",
       id: "test_db"
     }}
-  
+
   """
   @spec create_database(database_id :: binary(), mode :: Configuration.database_throughput_mode()) ::
           {:ok, Database.t()}
@@ -47,9 +47,9 @@ defmodule Cosmox.Database do
 
   @doc """
   Returns a list of the database available on the CosmosDB instance.
-  
+
   ## Example
-  
+
     iex> Cosmox.Database.list_databases()
     {:ok,
     %Cosmox.Structs.DatabaseList{
@@ -65,7 +65,7 @@ defmodule Cosmox.Database do
         }
       ]
     }
-  
+
   """
   @spec list_databases() ::
           {:ok, DatabaseList.t()}
@@ -82,9 +82,9 @@ defmodule Cosmox.Database do
 
   @doc """
   Gets the database with the given database_id.
-  
+
   ## Example
-  
+
     iex(4)> Cosmox.Database.get_database("test_db")
     {:ok,
     %Cosmox.Structs.Database{
@@ -96,7 +96,7 @@ defmodule Cosmox.Database do
       _users: "users/",
       id: "test_db"
     }}
-  
+
   """
   @spec get_database(database_id :: binary()) :: {:ok, Database.t()} | {:error, ErrorMessage.t()}
   def get_database(database_id) do
@@ -110,12 +110,12 @@ defmodule Cosmox.Database do
 
   @doc """
   Deletes the database with the given id.
-  
+
   ## Example
-  
+
     iex(5)> Cosmox.Database.delete_database("test_db")
     :ok
-  
+
   """
   @spec delete_database(database_id :: binary()) :: :ok | {:error, ErrorMessage.t()}
   def delete_database(database_id) do

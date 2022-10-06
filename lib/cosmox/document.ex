@@ -71,7 +71,7 @@ defmodule Cosmox.Document do
     }}
 
   """
-    @spec create_document(
+  @spec create_document(
           database_id :: binary(),
           container_id :: binary(),
           item :: term | map(),
@@ -88,19 +88,21 @@ defmodule Cosmox.Document do
     do: create_document_internal(database_id, container_id, item, pk, struct)
 
   def create_document(_, _, _, _),
-    do: {:error, %ErrorMessage{
-      errors: "Invalid item"
-    }}
+    do:
+      {:error,
+       %ErrorMessage{
+         errors: "Invalid item"
+       }}
 
   @spec create_document_internal(
-    database_id :: binary(),
-    container_id :: binary(),
-    item :: term | map(),
-    partition_key :: binary(),
-    struct :: module() | nil
-  ) ::
-      {:ok, term | map()}
-      | {:error, ErrorMessage.t()}
+          database_id :: binary(),
+          container_id :: binary(),
+          item :: term | map(),
+          partition_key :: binary(),
+          struct :: module() | nil
+        ) ::
+          {:ok, term | map()}
+          | {:error, ErrorMessage.t()}
   defp create_document_internal(database_id, container_id, item, partition_key, struct) do
     resource_link = "dbs/#{database_id}/colls/#{container_id}"
     resource_path = "/#{resource_link}/docs"
@@ -651,8 +653,8 @@ defmodule Cosmox.Document do
           struct :: module() | nil
         ) :: {:ok, term} | {:error, ErrorMessage.t()}
 
-          # {:ok, term | map()}
-          # | {:error, ErrorMessage.t()}
+  # {:ok, term | map()}
+  # | {:error, ErrorMessage.t()}
   def query_documents(
         database_id,
         container_id,

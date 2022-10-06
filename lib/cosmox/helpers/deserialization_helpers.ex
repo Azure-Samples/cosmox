@@ -60,20 +60,22 @@ defmodule Cosmox.Helpers.DeserializationHelpers do
         result
 
       {:error, error_struct = %{message: message}} ->
-        {:error, %ErrorMessage{
-          errors: [
-            message,
-            "#{inspect(error_struct)}"
-          ]
-        }}
+        {:error,
+         %ErrorMessage{
+           errors: [
+             message,
+             "#{inspect(error_struct)}"
+           ]
+         }}
 
       {:error, error} ->
-        {:error, %ErrorMessage{
-          errors: [
-            "An error occurred while parsing the response",
-            "#{inspect(error)}"
-          ]
-        }}
+        {:error,
+         %ErrorMessage{
+           errors: [
+             "An error occurred while parsing the response",
+             "#{inspect(error)}"
+           ]
+         }}
     end
   end
 end
