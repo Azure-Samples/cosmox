@@ -1,14 +1,53 @@
+[![Build](https://github.com/Azure-Samples/Cosmox/actions/workflows/compilation.yml/badge.svg)](https://github.com/Azure-Samples/Cosmox/actions/workflows/compilation.yml)
+
 # Project
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+The project aims at providing an Elixir client for the Cosmos DB SQL REST API. Although the library
+provides a map for every functionality of the SQL REST API, there are no optimisation 
+available for handling the collection.
 
-As the maintainer of this project, please make a few updates:
+#### Special mention
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+This project took huge inspiration from [this project](https://github.com/jeramyRR/cosmos_db_ex).
+
+### Usage
+
+The library acts as a client for the four different entities available in Cosmos DB, each of which
+has its own module:
+
+- `Cosmox.Database`: provides functions to create, modify and delete a database in 
+an instance of Cosmos DB.
+- `Cosmox.Container`: provides functions to create, modify and delete containers in a database.
+- `Cosmox.Document`: provides functions to create, patch, modify, delete and query documents in
+a container, both in and among different partitions. There is currently no check available for
+queries that spans more than one partition.
+- `Cosmox.StoredProcedure`: provides a way to manage stored procedures in Cosmos DB.
+
+The library has connection pooling baked in already, and it uses [Nestru](https://github.com/IvanRublev/Nestru)
+to generate `struct`s from maps, but its usage is completely optional, and to activate it
+it will be necessary to pass the `struct` to deserialise the response to as the last 
+parameters in the `Cosmox.Document` functions.
+
+### Configuration
+
+Cosmox requires defining the Cosmos DB instance URL and the access key. These information can
+be found in the Azure Portal under the **Keys** tab.
+
+Cosmox uses [Finch](https://github.com/sneako/finch) to handle the connection pooling. It is 
+automatically configured, but the configuration can be overridden by specifying the 
+`cosmos_db_pool_size` configuration.
+
+This is an example of the configuration:
+
+```elixir
+config :cosmox,
+  cosmos_db_host: "<substitute-cosmos-db-host-here>",
+  cosmos_db_key: "<substitute-cosmos-db-key-here>",
+  cosmos_db_pool_size: <substitute-with-connection-pool-size>
+```
+
+**Note**: the Cosmos DB key grants access to the database, so it's highly recommended to store 
+the `cosmos_db_key` configuration in a safe way.
 
 ## Contributing
 
