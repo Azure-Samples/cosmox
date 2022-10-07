@@ -1,8 +1,14 @@
+[![Build](https://github.com/Azure-Samples/Cosmox/actions/workflows/compilation.yml/badge.svg)](https://github.com/Azure-Samples/Cosmox/actions/workflows/compilation.yml)
+
 # Project
 
 The project aims at providing an Elixir client for the Cosmos DB SQL REST API. Although the library
 provides a map for every functionality of the SQL REST API, there are no optimisation 
 available for handling the collection.
+
+#### Special mention
+
+This project took huge inspiration from [this project](https://github.com/jeramyRR/cosmos_db_ex).
 
 ### Usage
 
