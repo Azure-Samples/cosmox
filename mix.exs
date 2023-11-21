@@ -25,9 +25,8 @@ defmodule Cosmox.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [
-        :logger
-      ]
+      extra_applications: [:logger],
+      mod: {Cosmox.Application, []}
     ]
   end
 
@@ -36,7 +35,7 @@ defmodule Cosmox.MixProject do
     [
       {:jason, "~> 1.3"},
       {:nestru, "~> 0.2.1"},
-      {:finch, "~> 0.13.0"},
+      {:finch, "~> 0.16.0"},
       {:timex, "~> 3.7"},
       {:dialyxir, "~> 1.2", only: :dev, runtime: false},
       {:credo, "~> 1.6", only: :dev, runtime: false},
