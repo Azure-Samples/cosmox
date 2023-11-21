@@ -4,7 +4,7 @@ defmodule Cosmox.Container do
   """
 
   import Cosmox.Configuration
-
+  alias Cosmox.Structs.CollectionList
   alias Cosmox.Helpers.ApiHelpers
   alias Cosmox.Response.ErrorMessage
   alias Cosmox.RestClient
@@ -195,6 +195,62 @@ defmodule Cosmox.Container do
     |> RestClient.try_decode_response(PartitionKeyRangeResponse)
   end
 
+  @doc """
+  Lists all containers (Collections) withing the given database
+
+  ## Example
+  iex> Cosmox.Container.list_containers("test_db")
+  {:ok,
+  %Cosmox.Structs.CollectionList{
+    ollections: [
+     %Cosmox.Structs.Collection{
+       id: "test_container",
+       indexing_policy: %Cosmox.Structs.Collections.IndexingPolicy{
+         indexingMode: "consistent",
+         automatic: true,
+         includedPaths: [
+           %Cosmox.Structs.Path{path: "/*"},
+           %Cosmox.Structs.Path{path: "/included/?"}
+         ],
+         excludedPaths: [
+           %Cosmox.Structs.Path{path: "/excluded/?"},
+           %Cosmox.Structs.Path{path: "/\"_etag\"/?"}
+         ]
+       },
+       partition_key: %Cosmox.Structs.PartitionKey{
+         paths: ["/id"],
+         kind: "Hash",
+         version: 1
+       },
+       conflict_resolution_policy: %Cosmox.Structs.Collections.ConflictResolutionPolicy{
+         mode: "LastWriterWins",
+         conflict_resolution_path: "/_ts",
+         conflict_resolution_procedure: ""
+       },
+       geospatial_config: %Cosmox.Structs.Collections.GeospatialConfig{
+         type: "Geography"
+       },
+       _rid: "ueZJIOPfJ7hg=",
+       _ts: 1697633950,
+       _self: "dbs/ueZDAA==/colls/ueZJIIfJLhg=/",
+       _etag: "\"0032600-ee00-0200-0000-652ff5de0000\"",
+       _docs: "docs/",
+       _sprocs: "sprocs/",
+       _triggers: "triggers/",
+       _udfs: "udfs/",
+       _conflicts: "conflicts/"
+     },
+  }}
+  """
+  @spec list_containers(any()) :: {:error, Cosmox.Response.ErrorMessage.t()} | {:ok, nil | map()}
+  def list_containers(database_id) do
+    resource_link = "dbs/#{database_id}"
+    resource_path = "dbs/#{database_id}/colls"
+
+    :colls
+    |> ApiHelpers.call(:get, resource_link, resource_path)
+    |> RestClient.try_decode_response(CollectionList)
+  end
   @doc """
   Deletes the given container within the given database id.
 
